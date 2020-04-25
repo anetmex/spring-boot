@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage("First step") {
             steps {
-                sh 'ssh root@ub1 \'hostname\''
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'my_user', url: 'https://github.com/anetmex/spring-boot.git']]])
             }
         }
         stage("Second step") {
