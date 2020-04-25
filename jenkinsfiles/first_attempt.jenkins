@@ -1,0 +1,29 @@
+#!groovy
+// Check ub1 properties
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent {
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+//    environment { ... }
+      stages {
+
+        stage("CHECKOUT") {
+            checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'my_user', url: 'https://github.com/anetmex/spring-boot.git']]])
+        }
+
+        stage("First step") {
+            steps {
+                sh 'ssh root@ub1 \'hostname\''
+            }
+        }
+
+        }
+      }
+    }
+}
