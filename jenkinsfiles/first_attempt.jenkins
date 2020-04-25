@@ -9,9 +9,9 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
-    }
+        }
 //    environment { ... }
-      stages {
+    stages {
 
         stage("CHECKOUT") {
             checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'my_user', url: 'https://github.com/anetmex/spring-boot.git']]])
@@ -24,6 +24,5 @@ pipeline {
         }
 
         }
-      }
     }
-}
+           }
